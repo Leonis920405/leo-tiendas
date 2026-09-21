@@ -32,3 +32,269 @@
       --amber: #e2a53f; --amber-dim: #7a5a2c;
       --teal: #5fa8a0; --teal-dim: #34524d;
       --red-off: #c1554a; --paper: #eee7d8; --paper-dim: #cfc9ba; --muted: #7d8a86;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12181a; --panel: #1a2325; --panel-border: #2b3639;
+    --amber: #e2a53f; --amber-dim: #7a5a2c;
+    --teal: #5fa8a0; --teal-dim: #34524d;
+    --red-off: #c1554a; --paper: #eee7d8; --paper-dim: #cfc9ba; --muted: #7d8a86;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--paper);
+    font-family: "Space Grotesk", -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: max(28px, env(safe-area-inset-top, 0px)) 22px max(40px, env(safe-area-inset-bottom, 0px));
+  }
+
+  .brand {
+    display: block;
+    font-family: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+    margin-bottom: 30px;
+  }
+
+  /* ---- hero switches ---- */
+  .switches {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .sw-track {
+    position: relative;
+    width: 52px;
+    height: 26px;
+    border-radius: 3px;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+  }
+  .sw-knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 2px;
+    background: var(--muted);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .sw-track.on .sw-knob { background: var(--amber); box-shadow: 0 0 10px 1px var(--amber-dim); }
+  .sw-track.mid .sw-knob { background: var(--teal); box-shadow: 0 0 10px 1px var(--teal-dim); }
+  .sw-track.on .sw-knob, .sw-track.mid .sw-knob { transform: translateX(24px); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sw-track.on .sw-knob {
+      animation: flip 0.5s ease-out 0.5s both;
+    }
+    .sw-track.mid .sw-knob {
+      animation: flip 0.5s ease-out 0.75s both;
+    }
+    @keyframes flip {
+      from { transform: translateX(0); background: var(--muted); box-shadow: none; }
+      to   { transform: translateX(24px); }
+    }
+  }
+
+  h1 {
+    font-size: clamp(26px, 6vw, 34px);
+    line-height: 1.15;
+    font-weight: 700;
+    margin: 0 0 12px;
+    max-width: 20ch;
+  }
+
+  .lead {
+    color: var(--paper-dim);
+    max-width: 46ch;
+    margin: 0 0 40px;
+    font-size: 16px;
+  }
+
+  /* ---- cards ---- */
+  main { display: flex; flex-direction: column; gap: 18px; }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-left: 3px solid var(--muted);
+    border-radius: 4px;
+    padding: 22px 22px 24px;
+  }
+  .card--live { border-left-color: var(--amber); }
+  .card--soon { border-left-color: var(--teal); }
+
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .dot--amber { background: var(--amber); box-shadow: 0 0 6px var(--amber-dim); }
+  .dot--teal { background: var(--teal); box-shadow: 0 0 6px var(--teal-dim); }
+
+  .card h2 {
+    font-size: 22px;
+    margin: 0 0 6px;
+    font-weight: 600;
+  }
+
+  .tagline {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--paper-dim);
+    margin: 0 0 14px;
+  }
+
+  .desc {
+    font-size: 15px;
+    color: var(--paper-dim);
+    max-width: 46ch;
+    margin: 0 0 18px;
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .chip {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    padding: 5px 9px;
+    border: 1px solid var(--panel-border);
+    border-radius: 2px;
+    color: var(--paper-dim);
+  }
+  .chip--pro { color: var(--amber); border-color: var(--amber-dim); }
+
+  /* ---- download control, styled as a switch ---- */
+  .dl-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  .dl-track {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    border-radius: 3px;
+    background: #0f1416;
+    border: 1px solid var(--panel-border);
+    flex: none;
+  }
+  .dl-knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+    background: var(--muted);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .dl-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    color: var(--paper);
+  }
+  .card--live .dl-switch:hover .dl-knob,
+  .card--live .dl-switch:focus-visible .dl-knob {
+    background: var(--amber);
+    transform: translateX(20px);
+    box-shadow: 0 0 8px 1px var(--amber-dim);
+  }
+  .card--soon .dl-switch:hover .dl-knob,
+  .card--soon .dl-switch:focus-visible .dl-knob {
+    background: var(--teal);
+    transform: translateX(20px);
+    box-shadow: 0 0 8px 1px var(--teal-dim);
+  }
+  .dl-switch:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; border-radius: 4px; }
+
+  .dl-switch--disabled {
+    cursor: not-allowed;
+  }
+  .dl-switch--disabled .dl-label { color: var(--muted); }
+  .dl-switch--disabled .dl-track { background: #0f1416; }
+
+  footer {
+    margin-top: 44px;
+    padding-top: 20px;
+    border-top: 1px solid var(--panel-border);
+  }
+  footer p {
+    font-size: 13.5px;
+    color: var(--muted);
+    max-width: 46ch;
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="brand">apps para Cuba</span>
+    </header>
+
+    <section class="hero">
+      <div class="switches" aria-hidden="true">
+        <div class="sw-track on"><div class="sw-knob"></div></div>
+        <div class="sw-track mid"><div class="sw-knob"></div></div>
+        <div class="sw-track"><div class="sw-knob"></div></div>
+      </div>
+      <h1>Dos apps para resolver cosas de todos los días</h1>
+      <p class="lead">Pensadas para Cuba: marcar códigos sin memorizarlos y saber cuándo se va la luz en tu circuito. Se instalan directo desde aquí, sin pasar por ninguna tienda.</p>
+    </section>
+
+    <main>
+      <article class="card card--live">
+        <div class="status"><span class="dot dot--amber"></span>Disponible</div>
+        <h2>SIMpleCell</h2>
+        <p class="tagline">Códigos USSD de ETECSA y Cubacel, en un toque</p>
+        <p class="desc">Marca los códigos para consultar saldo, datos, minutos y SMS sin tener que recordarlos ni escribirlos cada vez.</p>
+        <div class="chips">
+          <span class="chip">Gratis</span>
+          <span class="chip chip--pro">Pro: secuencia automática</span>
+        </div>
+        <a class="dl-switch" href="https://github.com/Leonis920405/leo-tiendas/raw/refs/heads/main/SIMpleCell-v1.1-debug.apk" id="simplecell-download">
+          <span class="dl-track"><span class="dl-knob"></span></span>
+          <span class="dl-label">Descargar APK</span>
+        </a>
+      </article>
+
+      <article class="card card--soon">
+        <div class="status"><span class="dot dot--teal"></span>Disponible (beta)</div>
+        <h2>Circuitos Habana</h2>
+        <p class="tagline">El mapa de los apagones de La Habana</p>
+        <p class="desc">Muestra sobre un mapa qué circuitos eléctricos están prendidos o apagados en cada municipio, con la información que publica la Empresa Eléctrica en su canal de Telegram.</p>
+        <a class="dl-switch dl-switch--teal" href="https://github.com/Leonis920405/leo-tiendas/raw/refs/heads/main/Circuitos%20habana.apk" id="circuitos-download">
+          <span class="dl-track"><span class="dl-knob"></span></span>
+          <span class="dl-label">Descargar APK</span>
+        </a>
+      </article>
+    </main>
+
+    <footer>
+      <p>Para instalar un APK descargado: al abrirlo, Android va a pedir permiso para instalar apps de esta fuente. Actívalo y sigue los pasos.</p>
+    </footer>
+  </div>
+</body>
+</html>
